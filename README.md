@@ -7,7 +7,7 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run start ou npm run start -- --port 8081 (port de base 8080)
 ```
 
 ### Compiles and minifies for production
