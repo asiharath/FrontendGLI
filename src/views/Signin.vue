@@ -2,7 +2,7 @@
   <div class="signin">
     <div class="box">
       <span>Bienvenue</span>
-      <input type="text" v-model="name" placeholder="votre nom" />
+      <input type="text" placeholder="votre nom" />
       <router-link to="/home">
         <button class="connexion">connexion</button>
       </router-link>
@@ -11,8 +11,28 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: "signin"
+  name: "signin",
+
+  async created() {
+    /*var myHeaders = new Headers();
+    myHeaders.append('Access-Control-Allow-Origin', '*')
+    myHeaders.append('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE')
+    myHeaders.append('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type')
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Accept', 'application/json')
+
+    var myInit = {
+      method: "GET",
+      headers: myHeaders,
+      mode: "cors",
+      cache: "default"
+    };*/
+    /* eslint no-console: ["error", { allow: ["log", "error"] }] */
+    const response = await axios("http://localhost:8080/citizen", { crossdomain: true });
+    console.log(response)
+  }
 };
 </script>
 
