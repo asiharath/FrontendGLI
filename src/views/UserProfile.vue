@@ -11,10 +11,29 @@
 </template>
 
 <script>
+import config from "@/config";
+import Cookies from "js-cookie";
 export default {
   name: "userprofile",
-  data() {
-    return { name: 'John Doe', start: 'Beaulieu', end: 'Villejean'};
+  
+  data: () => ({
+    name: '', 
+    start: '', 
+    end: ''
+  }),
+
+  async created() {
+    const myInit = {
+        method: 'GET'
+      };
+
+      const { api } = config;
+      const userID = Cookies.get('token');
+      const response = await fetch(`${api.baseUrl}citizen/${userID}`, myInit);
+      const data = await response.json();
+      this.name = data.name
+      this.start = data.home
+      this.end = data.work
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="signin">
     <div class="box">
-      <span>Bienvenue</span>
+      <span>Bienvenue sur BrB</span>
       <input type="text" placeholder="votre nom" v-model="username" />
       <button class="connexion" v-on:click="login">connexion</button>
     </div>
@@ -22,12 +22,12 @@ export default {
   methods: {
     login: async function() {
       const myInit = {
-        method: "GET"
+        method: 'GET'
       };
 
       const { api } = config;
 
-      const response = await fetch(api.baseUrl + "citizen", myInit);
+      const response = await fetch(`${api.baseUrl}citizen`, myInit);
       const data = await response.json();
 
       let user = false;
@@ -42,7 +42,7 @@ export default {
 
       if (user) {
         Cookies.set("token", tokenID);
-        alert("You are now logged in.");
+        alert("Vous êtes connecté");
         window.location.replace("/home");
       }
       else {

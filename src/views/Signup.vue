@@ -5,14 +5,66 @@
       <input type="text" v-model="name" placeholder="Votre nom" />
       <input type="text" v-model="start" placeholder="Votre lieu de départ" />
       <input type="text" v-model="end" placeholder="Votre lieu de d'arrivé" />
-      <button>register</button>
+      <button v-on:click="register">register</button>
     </div>
   </div>
 </template>
 
 <script>
+import config from "@/config";
+import Cookies from "js-cookie";
+
 export default {
+  /* eslint no-console: ["error", { allow: ["log", "error"] }] */
   name: "signup",
+
+  data: () => ({
+    name: 'Futaba',
+    start: 'Brest',
+    end: 'Rennes'
+  }),
+
+  methods: {
+    register: async function() {
+      const myInit = {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          "name": this.name,
+          "home": this.start,
+          "work": this.end
+        })
+      };
+
+      const { api } = config;
+
+        //const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+        const response = await fetch(api.baseUrl + "citizen", myInit);
+        const data = await response.json();
+        console.log(data[0].id);
+        Cookies.set("token", data[0].id);
+      
+    },
+    suppr: async function() {
+      const myInit = {
+        method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, DELETE",
+          "Access-Control-Allow-Headers":
+            "Access-Control-Allow-Methods, Access-Control-Allow-Origin, Origin, Accept, Content-Type",
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      };
+      const { api } = config;
+      await fetch(api.baseUrl + "citizen/24", myInit);
+    }
+  }
 };
 </script>
 
@@ -46,6 +98,6 @@ input {
 }
 
 button {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 </style>

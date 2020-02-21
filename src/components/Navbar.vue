@@ -2,8 +2,8 @@
   <div class="navbar">
     <ul class="left-content">
       <li>
-        <router-link to="/home" v-if="isLoggedIn">
-          <bouton><font-awesome-icon icon="home" /></bouton>
+        <router-link class="home" tag="li" to="/home" v-if="isLoggedIn">
+          <img src="@/assets/logobrb.png"/>
         </router-link>
       </li>
     </ul>
@@ -80,8 +80,16 @@ export default {
 }
 li {
   list-style: none;
+  text-decoration: none;
 }
-button {
-  margin: 0 auto;
+
+li a {
+    text-decoration: none;
 }
+
+img {
+  height: 30%;
+  width: 20%;
+}
+
 </style>
