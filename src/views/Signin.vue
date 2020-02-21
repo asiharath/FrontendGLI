@@ -2,7 +2,7 @@
   <div class="signin">
     <div class="box">
       <span>Bienvenue sur BrB</span>
-      <input type="text" placeholder="votre nom" v-model="username" />
+      <input type="text" placeholder="votre nom (exemple Olivier)" v-model="username" />
       <button class="connexion" v-on:click="login">connexion</button>
     </div>
   </div>
@@ -16,7 +16,7 @@ export default {
   name: "signin",
 
   data: () => ({
-    username: ""
+    username: ''
   }),
 
   methods: {

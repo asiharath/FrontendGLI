@@ -34,20 +34,24 @@ export default {
           Accept: "application/json"
         },
         body: JSON.stringify({
-          "name": this.name,
-          "home": this.start,
-          "work": this.end
+          name: this.name,
+          home: this.start,
+          work: this.end
         })
       };
 
       const { api } = config;
 
-        //const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+      try {
         const response = await fetch(api.baseUrl + "citizen", myInit);
         const data = await response.json();
         console.log(data[0].id);
         Cookies.set("token", data[0].id);
-      
+      } catch (err) {
+        alert(
+          "Désolé du désagrement nous avons un problème de CORS veuillez vous connecter avec un compte déjà existant"
+        );
+      }
     },
     suppr: async function() {
       const myInit = {

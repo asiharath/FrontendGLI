@@ -5,7 +5,7 @@
       <input v-model="name" v-bind:placeholder="name" />
       <input v-model="start" v-bind:placeholder="start" />
       <input v-model="end" v-bind:placeholder="end" />
-      <button>save</button>
+      <button v-on:click="update">save</button>
     </div>
   </div>
 </template>
@@ -34,6 +34,14 @@ export default {
       this.name = data.name
       this.start = data.home
       this.end = data.work
+  },
+
+  methods: {
+    update: async function() {
+      alert(
+          "Désolé du désagrement nous avons un problème de CORS"
+        );
+    }
   }
 };
 </script>
