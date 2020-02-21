@@ -2,28 +2,53 @@
   <div class="signin">
     <div class="box">
       <span>Bienvenue</span>
-      <input type="text" placeholder="votre nom" />
-      <router-link to="/home">
-        <button class="connexion">connexion</button>
-      </router-link>
+      <input type="text" placeholder="votre nom" v-model="username" />
+      <button class="connexion" v-on:click="login">connexion</button>
     </div>
   </div>
 </template>
 
 <script>
+import config from "@/config";
+import Cookies from'js-cookie'
 export default {
+  /* eslint no-console: ["error", { allow: ["log", "error"] }] */
   name: "signin",
 
-  async created() {
-    
+  data: () => ({
+    username: ""
+  }),
 
-    var myInit = {
-      method: "GET",
-    };
-    /* eslint no-console: ["error", { allow: ["log", "error"] }] */
-    const response = await fetch("http://localhost:8080/citizen/list", myInit);
-    const data = await response.json();
-    console.log(data)
+  methods: {
+    login: async function() {
+      const myInit = {
+        method: "GET"
+      };
+
+      const { api } = config;
+
+      const response = await fetch(api.baseUrl + "citizen", myInit);
+      const data = await response.json();
+
+      let user = false;
+      let tokenID;
+      let i = 0
+      for(i=0; i<data.length; i++){
+        if (data[i].name == this.username){
+          user = true
+          tokenID = data[i].id
+        }        
+      }
+
+      if (user) {
+        Cookies.set("token", tokenID);
+        alert("You are now logged in.");
+        window.location.replace("/home");
+      }
+      else {
+        alert("Le nom est incorrecte");
+      }
+    }
   }
 };
 </script>
@@ -54,6 +79,10 @@ input {
   color: #1c1c1f;
   font-size: 0.9375em;
   line-height: normal;
+  margin: 0 auto;
+}
+
+button {
   margin: 0 auto;
 }
 </style>
