@@ -26,7 +26,7 @@ export default {
       method: "GET"
     };
 
-    const { api } = config
+    const { api, gMap } = config
     const userID = Cookies.get("token")
     const response = await fetch(`${api.baseUrl}citizen/${userID}`, myInit)
     const data = await response.json()
@@ -36,9 +36,9 @@ export default {
     this.end = data.work
     const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
-    const apiDriving = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.start}&destination=${this.end}&key=AIzaSyAoGbloAqtUT_mVbn0zqsP0o9HyCbu_rhs`
-    const apiWalking = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.start}&destination=${this.end}&mode=walking&key=AIzaSyAoGbloAqtUT_mVbn0zqsP0o9HyCbu_rhs`
-    const apiBicycling = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.start}&destination=${this.end}&mode=bicycling&key=AIzaSyAoGbloAqtUT_mVbn0zqsP0o9HyCbu_rhs`
+    const apiDriving = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.start}&destination=${this.end}&key=${gMap.apiKey}`
+    const apiWalking = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.start}&destination=${this.end}&mode=walking&key=${gMap.apiKey}`
+    const apiBicycling = `https://maps.googleapis.com/maps/api/directions/json?origin=${this.start}&destination=${this.end}&mode=bicycling&key=${gMap.apiKey}`
     const responseGD = await fetch(PROXY_URL+apiDriving, myInit)
     const dataGD = await responseGD.json()
     const responseGW = await fetch(PROXY_URL+apiWalking, myInit)

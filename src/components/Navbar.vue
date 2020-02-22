@@ -43,7 +43,6 @@ export default {
   created() {
     const myCookie = !(Cookies.get("token") == null);
     this.isLoggedIn = myCookie;
-    console.log(this.isLoggedIn);
   },
 
   methods: {
